@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Configuration>
+	<Text Name="AttributionText">AttributionText</Text>
+	<Text Name="HeaderText">HeaderText</Text>
+	<Text Name="TitleText">TitleText</Text>
+	<Text Name="BodyText1">BodyText1</Text>
+	<Text Name="BodyText2">BodyText2</Text>
+	<Text Name="BodyText3">BodyText3</Text>
+</Configuration>

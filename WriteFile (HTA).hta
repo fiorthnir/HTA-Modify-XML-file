@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>CREATE PERSONNALIZED MESSAGE</title>
+	<script language="VBScript">Window.ResizeTo 900,900</script>
+	<script language="VBScript">Window.MoveTo ((Screen.AvailWidth -1000) / 2), 10</script>
+
+    <HTA:APPLICATION
+        APPLICATIONNAME = "PERSONNALIZED MESSAGE"
+		id="WriteXML"
+		SINGLEINSTANCE="yes"
+		BORDER="thin"
+		SCROLL = "No"
+		SCROLLFLAT = "No"
+    />
+	
+	<script language="vbscript">
+	Set xmlDoc = CreateObject("Microsoft.XMLDOM")
+	xmlDoc.Async = "False"
+	xmlDoc.Load ".\message.xml"
+	
+	Sub Submitarea
+		Dim sValues(5)
+		sValues(0) = AttributionText.Value
+		sValues(1) = HeaderText.Value
+		sValues(2) = TitleText.Value
+		sValues(3) = BodyText1.Value
+		sValues(4) = BodyText2.Value
+		sValues(5) = BodyText3.Value
+		
+		Dim sName(5)
+		sName(0) = AttributionText.Name
+		sName(1) = HeaderText.Name
+		sName(2) = TitleText.Name
+		sName(3) = BodyText1.Name
+		sName(4) = BodyText2.Name
+		sName(5) = BodyText3.Name
+		
+		For i = 0 to 5
+			Set colNode = xmlDoc.SelectSingleNode("//Configuration/Text[@Name='" & sName(i) & "']")
+			If colNode Is Nothing Then
+			  MsgBox "Nothing found."
+			Else
+			  colNode.Text = sValues(i)
+			  strResult = xmlDoc.Save(".\message.xml")
+			End If
+		Next
+		
+		
+	End Sub
+	
+	</script>
+	<style>
+body {
+color: #8BE1FC;
+background-color: #FFFFFF;
+font-family: Arial;}
+
+table {
+border-width:0px;
+border-style:solid;
+border-collapse:collapse;
+}
+
+td {
+padding: 4px;
+color: #FFFFFF;
+background-color: #8BE1FC;
+border-width:0px;
+border-style:solid;
+}
+
+input.Invalid {
+background-color: #8BE1FC;
+}
+</style>
+	</head>
+ 
+<body>
+    <h1>Toast Notification Message Personnalizer</h1>
+    <p>Personnalize your message for Toast Notification</p>
+	
+
+<table border="0" style="width: 910px;">
+	<tr>
+		<td><strong>Attribution</strong></td>
+		<td colspan="3">
+			<input type="text" id="AttributionText" name="AttributionText" size="80"><br />
+		</td>
+	</tr>
+	<tr>
+		<td><strong>Header</strong></td>
+		<td colspan="3">
+			<input type="text" id="HeaderText" name="HeaderText" size="80"><br />
+		</td>
+	</tr>
+	<tr>
+		<td><strong>Title</strong></td>
+		<td colspan="3">
+			<input type="text" id="TitleText" name="TitleText" size="80"><br />
+		</td>
+	</tr>
+
+	
+	<tr>
+		<td><strong>Text 1</strong></td>
+		<td colspan="3">
+			<textarea name="BodyText1" id="BodyText1" rows="5" cols="20">
+			</textarea><br />
+		</td>
+	</tr>
+	
+	<tr>
+		<td><strong>Text 2</strong></td>
+		<td colspan="3">
+			<textarea name="BodyText2" id="BodyText2" rows="5" cols="20">
+			</textarea><br />
+		</td>
+	</tr>
+
+	<tr>
+		<td><strong>Text 3</strong></td>
+		<td colspan="3">
+			<textarea name="BodyText3" id="BodyText3" rows="5" cols="20">
+			</textarea><br />
+		</td>
+	</tr>	
+</table>
+
+	
+	<input type="button" value="Submit" onclick="Submitarea">
+
+	
+</body>
+ 
+</html>
